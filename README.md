@@ -7,5 +7,5 @@ https://youtube.com/watch?v=v9x1sNbdDr0&feature=share
 | รหัสนักศึกษา| ชื่อ - นามสกุล |    Github    |
 | :---         |     :---      |          :--- |
 | 63070029   |นางสาวชนิกา ปรีชาพลกุล     |  |
-| 63070030   |นางสาวชนิกานต์ คำวงษ์     |  https://github.com/chanikarn030|
-| 63070031   |นางสาวชนิสรา วัชรพรกุล     |https://github.com/Chanisaranest|
+| 63070030   |นางสาวชนิกานต์ คำวงษ์     | [chanikarn030](https://github.com/chanikarn030)|
+| 63070031   |นางสาวชนิสรา วัชรพรกุล     |[Chanisaranest](https://github.com/Chanisaranest)|
