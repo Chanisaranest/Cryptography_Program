@@ -5,9 +5,9 @@
 #include <stdlib.h>
 
 int inputDorE();
-int Hill(int num);
-int DecodeH(char alphabetB[]);
-int EncodeH(char alphabetB[]);
+// int Hill(int num);
+// int DecodeH(char alphabetB[]);
+// int EncodeH(char alphabetB[]);
 int Shift(int num);
 int DecodeC(char alphabetB[],char alphabetS[]);
 int EncodeC(char alphabetB[],char alphabetS[]);
