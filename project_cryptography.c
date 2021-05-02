@@ -23,38 +23,33 @@ int main(){
     printf("\n=====================================\n");
     printf("\n");
     printf("\tCryptography Program\n\n");
-    printf("\t[ 1 ] Hill Cipher\n");
-    printf("\t[ 2 ] Shift Cipher\n");
-    printf("\t[ 3 ] Vigenère Cipher\n");
-    printf("\t[ 4 ] Exit\n\n");
+    printf("\t[ 1 ] Shift Cipher\n");
+    printf("\t[ 2 ] Vigenère Cipher\n");
+    printf("\t[ 3 ] Exit\n\n");
     printf("=====================================\n");
     printf("\n\tWhat do you want?(Enter number 1 or 2 or 3): ");
     scanf("%d", &number);
     // เงื่อนไขเช็กว่ารับค่ามาถูกต้องมั้ย
-    if(number != 1 && number != 2 && number != 3 && number != 4){
+    if(number != 1 && number != 2 && number != 3){
         printf("\n=====================================\n");
         main();
     }
-    else if(number != 4){
+    else if(number != 3){
         int number2 = inputDorE();
         if(number2 == 3){
             check = 1;
         }
-        // กรณีใช้รูปแบบ Matrix
-        else if(number == 1){
-            Hill(number2);
-        }
         // กรณีใช้รูปแบบ ซีซาร์
-        else if(number == 2){
+        else if(number == 1){
             Shift(number2);
         }
         //กรณีใช้แบบวินแนร์
-        else if(number == 3){
+        else if(number == 2){
             Vn(number2);
         }
     }
     // ปิดโปรแกรม
-    if(number == 4){
+    if(number == 3){
         check = 2;
     }
     // เช็กว่าต้องการใช้งานต่อหรือปิดโปรแกรม
@@ -97,20 +92,6 @@ int inputDorE(){
     return number2;
 }
 
-// การทำงานของรหัสแบบ Hill
-int Hill(int num){
-    system("cls || clear");
-    char alphabetB[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
-    printf("\n=====================================\n");
-    if(num == 1){
-        DecodeH(alphabetB);
-    }
-    else{
-        EncodeH(alphabetB);
-    }
-    return 0;
-}
-
 // การทำงานของรหัสแบบซีซาร์
 int Shift(int num){
     system("cls || clear");
@@ -138,207 +119,6 @@ int Vn(int num){
         EncodeV(alphabetB);
     }
     return 0;
-}
-
-// Decode Hill
-int DecodeH(char alphabetB[]){
-    int size, len;
-    char text[201];
-    printf("\n\tHill Cipher Decryption.\n");
-    printf("\n\tEnter the size of key matrix(Only 2 or 3) : ");
-    scanf("%d", &size);
-    while(!(size == 2 || size ==3)){
-        system("cls || clear");
-        printf("\n=====================================\n");
-        printf("\n\tHill Cipher Decryption.\n");
-        printf("\n\tEnter the size of key matrix(Only 2x2 or 3x3 matrix) : ");
-        scanf("%d", &size);
-    }
-    printf("\n\tEnter %dx%d matrix for key : \n", size,size);
-    float matrixK[size][size];
-    for(int i=0;i<size;i++){
-        for(int j=0;j<size;j++){
-            scanf("%f", &matrixK[i][j]);
-        }
-    }
-
-    //ทำ key inverse
-    // แบบ 2x2
-    if(size == 2){
-        float tmp = matrixK[0][0];
-        matrixK[0][1] = -matrixK[0][1];
-        matrixK[1][0] = -matrixK[1][0];
-        matrixK[0][0] = matrixK[1][1];
-        matrixK[1][1] = tmp;
-        for(int i=0;i<size;i++){
-            for(int j=0;j<size;j++){
-                float num = matrixK[i][j];
-                num = num/26;
-                num = (matrixK[i][j])-floor(num)*26;
-                matrixK[i][j] = num;
-            }
-        }
-        tmp = matrixK[0][0]*matrixK[1][1]-matrixK[0][1]*matrixK[1][0];
-        float num = tmp;
-        num = num/26;
-        num = (tmp)-floor(num)*26;
-        int dinver = num;
-        int i=0;
-        while(1){
-            if((26*i+1)%dinver==0){
-                dinver = (26*i+1)/dinver;
-                break;
-            }
-            i++;
-        }
-        for(int i=0;i<size;i++){
-            for(int j=0;j<size;j++){
-                matrixK[i][j] = matrixK[i][j]*dinver;
-                float num = matrixK[i][j];
-                num = num/26;
-                num = (matrixK[i][j])-floor(num)*26;
-                matrixK[i][j] = num;
-            }
-        }
-    }
-    // แบบ 3x3
-    else if(size == 3){
-        float keep[3][3];
-        keep[0][0] = matrixK[1][1]*matrixK[2][2]-matrixK[2][1]*matrixK[1][2];
-        keep[0][1] = -(matrixK[0][1]*matrixK[2][2]-matrixK[2][1]*matrixK[0][2]);
-        keep[0][2] = matrixK[0][1]*matrixK[1][2]-matrixK[1][1]*matrixK[0][2];
-        keep[1][0] = -(matrixK[1][0]*matrixK[2][2]-matrixK[2][0]*matrixK[1][2]);
-        keep[1][1] = matrixK[0][0]*matrixK[2][2]-matrixK[2][0]*matrixK[0][2];
-        keep[1][2] = -(matrixK[0][0]*matrixK[1][2]-matrixK[1][0]*matrixK[0][2]);
-        keep[2][0] = matrixK[1][0]*matrixK[2][1]-matrixK[2][0]*matrixK[1][1];
-        keep[2][1] = -(matrixK[0][0]*matrixK[2][1]-matrixK[2][0]*matrixK[0][1]);
-        keep[2][2] = matrixK[0][0]*matrixK[1][1]-matrixK[0][1]*matrixK[1][0];
-        int all = matrixK[0][0]*(matrixK[1][1]*matrixK[2][2]-matrixK[1][2]*matrixK[2][1])-matrixK[0][1]*(matrixK[1][0]*matrixK[2][2]-matrixK[1][2]*matrixK[2][0])+matrixK[0][2]*(matrixK[1][0]*matrixK[2][1]-matrixK[2][0]*matrixK[1][1]);
-        float num = all;
-        num = num/26;
-        num = (all)-floor(num)*26;
-        all = num;
-        int i=0;
-        while(1){
-            if((26*i+1)%all==0){
-                all = (26*i+1)/all;
-                break;
-            }
-            i++;
-        }
-        for(int i=0;i<size;i++){
-            for(int j=0;j<size;j++){
-                keep[i][j] = keep[i][j]*all;
-                float num = keep[i][j];
-                num = num/26;
-                num = (keep[i][j])-floor(num)*26;
-                matrixK[i][j] = num;
-            }
-        }
-    }
-
-    //จบ inverse
-
-    printf("\n\tPlain text(Only alphabet) : ");
-    scanf(" %[^\n]s", &text);
-    len = strlen(text);
-    for(int i=0;i<len;i=i+size){
-        int newM[size];
-        for(int j=0;j<size;j++){
-            newM[j] = 0;
-        }
-        for(int j=0;j<size;j++){
-            int num;
-            for(int k=0;k<26;k++){
-                if(tolower(text[i+j]) == alphabetB[k] || toupper(text[i+j]) == alphabetB[k])
-                {
-                    num = k;
-                    break;
-                }
-            }
-            for(int l=0;l<size;l++){
-                newM[l] += matrixK[l][j]*num;
-            }
-        } 
-        for(int j=0;j<size;j++){
-            float num = newM[j];
-            num = num/26;
-            num = (newM[j])-floor(num)*26;
-            int num_i = num;
-            
-            if(islower(text[i+j])){
-                text[i+j] = tolower(alphabetB[num_i]);
-            }
-            else if(isupper(text[i+j])){
-                text[i+j] = alphabetB[num_i];
-            }
-            
-        }
-    }
-    printf("\n       Decrypted Text: %s", text);
-    printf("\n=====================================\n");
-}
-
-// Encode Hill
-int EncodeH(char alphabetB[]){
-    int size, len;
-    char text[201];
-    printf("\n\tHill Cipher Encryption.\n");
-    printf("\n\tEnter the size of key matrix(Only 2 or 3) : ");
-    scanf("%d", &size);
-    printf("\n\tEnter %dx%d matrix for key : \n", size,size);
-    int matrixK[size][size];
-    for(int i=0;i<size;i++){
-        for(int j=0;j<size;j++){
-            scanf("%d", &matrixK[i][j]);
-        }
-    }
-    printf("\n\tPlain text(Only alphabet) : ");
-    scanf(" %[^\n]s", &text);
-    len = strlen(text);
-    if(len%size != 0){
-        for(int i=0;i<=abs(size-len%size);i++){
-            text[len+i] = 'x';
-            if(i==abs(size-len%size)){
-                text[len+i] = '\0';
-            }
-        }
-    }
-    for(int i=0;i<len;i=i+size){
-        int newM[size];
-        for(int j=0;j<size;j++){
-            newM[j] = 0;
-        }
-        for(int j=0;j<size;j++){
-            int num;
-            for(int k=0;k<26;k++){
-                if(tolower(text[i+j]) == alphabetB[k] || toupper(text[i+j]) == alphabetB[k])
-                {
-                    num = k;
-                    break;
-                }
-            }
-            for(int l=0;l<size;l++){
-                newM[l] += matrixK[l][j]*num;
-            }
-        } 
-        for(int j=0;j<size;j++){
-            float num = newM[j];
-            num = num/26;
-            num = (newM[j])-floor(num)*26;
-            int num_i = num;
-            
-            if(islower(text[i+j])){
-                text[i+j] = tolower(alphabetB[num_i]);
-            }
-            else if(isupper(text[i+j])){
-                text[i+j] = alphabetB[num_i];
-            }
-            
-        }
-    }
-    printf("\n       Encrypted Text: %s", text);
-    printf("\n=====================================\n");
 }
 
 // Decode Shift
