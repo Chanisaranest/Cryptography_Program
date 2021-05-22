@@ -8,6 +8,9 @@
   Cryptography คือโปรแกรมที่ช่วยในการถอดและแปลงรหัสของข้อมูลโดยผู้ใช้สามารถเลือกรูปแบบของรหัสที่ต้องการได้ 2 แบบ คือ 1.Shift Cipher 2.Vigenere Cipher
 ## วิธีการใช้งาน 
 วิดีโอสาธิตวิธีการใช้งาน https://youtube.com/watch?v=v9x1sNbdDr0&feature=share
+## Poster
+![](poster1.png)
+
 
 ## สมาชิกกลุ่ม
 
