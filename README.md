@@ -9,7 +9,7 @@
 ## วิธีการใช้งาน 
 วิดีโอสาธิตวิธีการใช้งาน https://youtube.com/watch?v=v9x1sNbdDr0&feature=share
 ## Poster
-![](poster1.png)
+![](poster.jpg)
 
 
 ## สมาชิกกลุ่ม
